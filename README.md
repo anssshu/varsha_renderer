@@ -1,4 +1,9 @@
-#Game Engine
+#GRAPHICS ENGINE
+
+CREATE A 3D RENDERER WITH OPENGL THEN MIGRATE TO VULKAN
+
+CREATE A 2D RENDERER WITH GLES3 THEN MIGRATE TO VULKAN
+
 
 this is my simple c++ project to create a game engine.
 first version will be with opengl and render only 2d scenes and graphics.

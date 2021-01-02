@@ -1,5 +1,5 @@
 #include "suzane.hpp"
-Suzane::Suzane():Model("models/suzane/suzane.obj")
+Suzane::Suzane():Model("models/suzane/suzane.obj","shaders/suzane.vs","shaders/suzane.fs")
     {
          rot.x =  -30.0f;
     }

@@ -1,17 +1,50 @@
 refactor the code
 
+FOCUS 
+
+
+
+
+create the 2d renderer and draw a rectangle with a texture on it
+
+//define the model data structure
+
+//create a base object for all the 2d models
+
+//create a 2d models
+
+//cretae the shader 
+
+----render and check your first rectangle with color
+
+----render your first rectangle with a texture
+
+---create a texture atlas
+
+//create the renderer
+
+//create the scene
+
+//create a camera
+
+
+
+//create a 2d light
+
+
+
 
 GOAL IS TO LEARN OPENGL
 
+---->add a 2d renderer and add it 
+---->add an SDL window
 
-add an SDL window
 
 
-upload it to git hub 
 
-focus on light and material
+focus on light and material for 3d 
 
-a roboust glTF based graphics engine; for 2d 3d and port to any platform
+write a glTF loader for 3d
 
 
 
