@@ -1,5 +1,4 @@
-#pragma once
-#include <iostream>
-#include <string>
-using namespace std;
-Model2DData loadModel(string const &path);
+/*
+ HELPER FUNCTIONS FOR MANIPULATING THE DATA STRUCTURE
+*/
+

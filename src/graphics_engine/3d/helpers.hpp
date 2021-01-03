@@ -16,10 +16,10 @@ This file contains all the helper functions for the current application
 #include "structures.hpp"
 
 #include <stb_image.h>
-
+#include "../../common/file.hpp"
 //define all the function
 
-std::string readFile(const char* filePath);
+
 ModelData loadModel(string const &path);
 
 

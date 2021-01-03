@@ -17,25 +17,30 @@ Application::Application(){
     
     initDisplay(800,600,"TITLE");
 
+    if (render_mode == MODE_2D)
+    {
+        //load the 2d World and run all the stuff
+        
+    }
     
     
-
-    //create a scene
+    if (render_mode == MODE_3D)
+    
+    {
+        //create a scene
     MainScene* scene = new MainScene();//a container of lights and models and a camera
 
-    //create a model and add to scene
-    //Model* suzane = new Suzane();
-    //scene->addModel(suzane);
-
-
-    
+  
+  
     
     display->renderer_3d->addScene(scene);
     //load the scene with opengl renderer
     display->renderer_3d->loadScene(0);//OPEN GL IS THE CURRENT RENDERER
+    
+    }
+    
 
-    //connect the world to the display
-    //addWorld(world);
+    
 
 
 }
@@ -61,7 +66,7 @@ void Application::initDisplay(const int WIDTH,const int HEIGHT,const char* TITLE
         //create a 3d renderer
 
         //choose a renderer from the input option
-        if (this->renderer_setting ==OPENGL)
+        if (renderer_setting ==OPENGL)
         {
             display->renderer_3d = new GLRenderer3D();
         }
@@ -75,7 +80,7 @@ void Application::initDisplay(const int WIDTH,const int HEIGHT,const char* TITLE
         //create a 2d renderer
         if (renderer_setting ==OPENGL)
         {
-            //display->renderer_2d = new GLRenderer2D();
+            display->renderer_2d = new GLRenderer2D();
         }
     }
     

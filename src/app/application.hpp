@@ -1,7 +1,7 @@
 
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
-
+#include "graphics_engine/2d/engine.hpp"
 #include "graphics_engine/3d/engine.hpp"
 #include "app/suzane.hpp"
 

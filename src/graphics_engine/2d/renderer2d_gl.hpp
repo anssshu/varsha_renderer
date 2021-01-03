@@ -1,49 +1,72 @@
 #pragma once
-//#include "scene.hpp"
-#include "renderer2d.hpp" //renderer interface
-#include "../renderer_gl/shader_gl.hpp"
+#include "renderer2d.hpp"
+#include "structures2d.hpp"
+#include "helpers2d_gl.hpp"
+#include "shader2d.hpp"
+#include "shader2d_gl.hpp"
 
-class GLRenderer2D:public Renderer2D
-{   
+class GLRenderer2D:public IRenderer2D
+{
     public:
-    float rot = 0.0f;
-    //container for the scene
-    //Scene* current_scene;----interface has a current scene
- 
+    Mesh2D mesh;
+    Shader2d* pshader;
+    unsigned int shaderProgram,textureID;
+    //construct the renderer
+    GLRenderer2D(){
 
-    //container for Models;
-    vector<Model2D*> model_array;
+        Vertex2D v1,v2,v3,v4;
+        v1.Position = vec3(-0.5, 0.5,0.0); //top left
+        v2.Position = vec3( 0.5, 0.5,0.0); //top right
+        v3.Position = vec3( 0.5,-0.5,0.0); //bottom right
+        v4.Position = vec3(-0.5,-0.5,0.0); //bottom left
+
+        v1.TexCoords = vec2(0.0,1.0); //top left
+        v2.TexCoords = vec2(1.0,1.0); //top right
+        v3.TexCoords = vec2(1.0,0.0); //bottom right
+        v4.TexCoords = vec2(0.0,0.0); //bottom left
+
+        //get mesh data
+        Mesh2DData mesh2d_data ;
+        mesh2d_data.vertices={v1,v2,v3,v4};
+        mesh2d_data.indices = {0,1,2,2,0,3}; 
+        
+        //create VAO ,indices
+        mesh = createMesh2D(mesh2d_data);
+
+        pshader = new GLShader2D("shaders/sprite.vs","shaders/sprite.fs");
+        
+        //create a shader
+        //shaderProgram = createShaderProgram("shaders/sprite.vs","shaders/sprite.fs");
+
+        pshader->loadVertexData(mesh);
+        pshader->loadTextureData({0,"textures/ubuntu.jpg","texture1"});
+        //textureID = loadTexture2D("textures/ubuntu.jpg");
+
+        //glUseProgram(shaderProgram);
+       
+        //glUniform1i(glGetUniformLocation(shaderProgram,"texture1"),textureID-1);
+        //load textures
+
+    };
+
+
+   
+
     
+    //this function will be called from the display to render the 2d scene
+    void renderScene(){
 
-    //default camera
-    //Camera2D* camera;
+       pshader->use();
 
-    //default light
-    //Light2D light;
+       pshader->loadVertexData(mesh);
 
-    //constructor
-    GLRenderer2D();
+       pshader->bindTextures();
 
-    //destructor
-    ~GLRenderer2D();
-    //create a single mesh(VAO indice_size) from mesh_data
-    //Mesh processMeshData(MeshData mesh_data);
-
-    //process model data and create an array of meshes(VAO,indices)
-    //vector<Mesh> processModelData(ModelData data);
-
-    //function to render a single Model
-    //void renderMesh(Mesh mesh,Shader* shader);
-
-    //process models with model_data and stores them to model array
-    //void loadModel(Model2D* model);
-    //function to render a Model 
-    //void renderModel();
-    //load scene 
-    void loadScene2D(Scene2D* scene);
-    //function to render the current scene
-    void renderScene2D();
+       pshader->renderContainer();
 
 
+    };
 
+    void addScene(){};
+    void loadScene(){};
 };

@@ -115,34 +115,39 @@ void GlfwDisplay::processInput(GLFWwindow *window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
-    Camera* camera;
+    
+    //      PROCESS 3D INPUT
+    
     if (render_mode == MODE_3D)
     {
-         camera = &renderer_3d->current_scene->camera;
+        Camera* camera;
+        camera = &renderer_3d->current_scene->camera;
+
+         camera->target.y = camera->pos.y;
+        camera->target.x = camera->pos.x;
+        camera->target.z = camera->pos.z-1.0f;
+        //float deltaTime = 0.1;
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+            camera->pos.z+=0.1f;
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+            camera->pos.z-=0.1f;
+
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+            camera->pos.x+=0.1f;
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+            camera->pos.x-=0.1f;
     }
        
 
     
     
-    camera->target.y = camera->pos.y;
-    camera->target.x = camera->pos.x;
-    camera->target.z = camera->pos.z-1.0f;
-    //float deltaTime = 0.1;
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera->pos.z+=0.1f;
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera->pos.z-=0.1f;
-
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera->pos.x+=0.1f;
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera->pos.x-=0.1f;
+    
     
 }
 
 
 
-
+/*
 void GlfwDisplay::renderScene(){
     if (render_mode == MODE_3D)
         {
@@ -150,6 +155,8 @@ void GlfwDisplay::renderScene(){
         }
     else
         {
-            //renderer_2d->renderScene();
+            renderer_2d->renderScene();
         }
 }
+
+*/

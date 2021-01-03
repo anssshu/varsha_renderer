@@ -1,20 +1,20 @@
 #pragma once
 //#include "structures.hpp"
-#include "helpers_gl.hpp"
-#include "../../shader.hpp"
+#include "helpers2d_gl.hpp"
+#include "shader2d.hpp"
 
 //shader class
-class GLShader:public Shader{
+class GLShader2D:public Shader2d{
     public:
     unsigned int textureCount , indices_size;
     unsigned int VAO;
     int shaderProgram;
-    vector<TextureData> textures;
+    vector<Texture2DData> textures;
     //load shaderfiles and create the shaderProgram
    
-    GLShader(ShaderData data);
-    GLShader(string vertex_shader_path,string fragment_shader_path);
-    void loadVertexData(Mesh mesh);
+    GLShader2D(Shader2DData data);
+    GLShader2D(string vertex_shader_path,string fragment_shader_path);
+    void loadVertexData(Mesh2D mesh);
     void renderContainer();
     void render();
     //for rgb falg ==0 ,for rgba flag =1
@@ -22,14 +22,14 @@ class GLShader:public Shader{
 
     void connectUniformTexturetoTextureSlot(string path,const string name);
     //load a single texture file
-    void loadTextureData(TextureData tex);
+    void loadTextureData(Texture2DData tex);
     //load multiple texture files
-    void loadTextureList(vector<TextureData> texture_list);
+    void loadTextureList(vector<Texture2DData> texture_list);
     // draw the textures
     void bindTextures();
     void use();
 
-    ~GLShader();
+    ~GLShader2D();
 
     void setUniformBool(const std::string &name, bool value) const;
     

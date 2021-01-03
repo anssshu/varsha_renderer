@@ -1,9 +1,10 @@
+#include "helpers2d_gl.hpp"
+#include "structures2d.hpp"
 
-#include "helpers_gl.hpp"
 
-//function to process mesh data
-Mesh processVertexData(VertexData vertex_data){
-    Mesh mesh;
+Mesh2D createMesh2D(Mesh2DData vertex_data)
+{
+    Mesh2D mesh;
     unsigned int VAO,EBO,VBO;
 
     glGenVertexArrays(1,&VAO);
@@ -12,24 +13,27 @@ Mesh processVertexData(VertexData vertex_data){
     //create VBO
     glGenBuffers(1,&VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertex_data.vertices.size()*sizeof(float), &vertex_data.vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertex_data.vertices.size()*sizeof(Vertex2D), &vertex_data.vertices[0], GL_STATIC_DRAW);
 
     //create EBO
     glGenBuffers(1,&EBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,vertex_data.indices.size()*sizeof(unsigned ),&vertex_data.indices[0],GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER,vertex_data.indices.size()*sizeof(unsigned int),&vertex_data.indices[0],GL_STATIC_DRAW);
 
     
 
     //create attribute pointers
 
-    //positin data
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,5*sizeof(float),(void*) 0);
-    glEnableVertexAttribArray(0);
+  
 
-    //uv data
-    glVertexAttribPointer(1,2,GL_FLOAT,GL_FALSE,5*sizeof(float),(void*) (3*sizeof(float)) );
-    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(0);	
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (void*)0);
+    
+    // vertex normals
+    glEnableVertexAttribArray(1);	
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2D), (void*)offsetof(Vertex2D,TexCoords));
+
+    
     
     //unbing buffer
     glBindBuffer(GL_ARRAY_BUFFER,0);
@@ -41,7 +45,8 @@ Mesh processVertexData(VertexData vertex_data){
 
     return mesh;
 }
-unsigned int loadShader(string vertex_shader_path,string fragment_shader_path){
+
+unsigned int createShaderProgram(string vertex_shader_path,string fragment_shader_path){
         string _vs_code = readFile(vertex_shader_path.c_str());
         string _fs_code = readFile(fragment_shader_path.c_str());
 
@@ -108,10 +113,7 @@ unsigned int loadShader(string vertex_shader_path,string fragment_shader_path){
 
 };
 
-
-
-
-unsigned int loadTexture(const char* filePath){
+unsigned int loadTexture2D(const char* filePath){
     // ---------
     unsigned int texture;
     int width, height, nrChannels;

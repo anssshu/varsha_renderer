@@ -32,7 +32,7 @@ class GlfwDisplay:public Display{
         void run();
         //void render2D();
         //void render3D();
-        void renderScene();
+        //void renderScene();
 
 };
 

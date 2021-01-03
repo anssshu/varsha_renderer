@@ -9,16 +9,18 @@
 
 */
 #pragma once
-#include "../3d/renderer_interface_3d.hpp"
-//#include "../2d/world2d.hpp"
+#include "../3d/engine.hpp"
+#include "../2d/engine.hpp"
 class Display{
     public:
         //World* world;
         unsigned int render_mode;
+
         IRenderer3D* renderer_3d;
-        //IRenderer2D* renderer_2d;
+        IRenderer2D* renderer_2d;
+        
         //Display() ;
-       //GLFWwindow* window;
+        //GLFWwindow* window;
         //Display(const unsigned int WIDTH,const unsigned int HEIGHT,const char* TITLE);
         //virtual ~Display() = default;
 
@@ -28,7 +30,20 @@ class Display{
         //function for running of the loop
         virtual void run() = 0;
 
-        virtual void renderScene()=0;
+        void renderScene(){
+
+            if (render_mode == MODE_3D)
+                {
+                    renderer_3d->renderScene();
+                }
+            //render the 2d world    
+            else
+                {
+                    renderer_2d->renderScene();
+                }
+        };
+
+        //process input
 
         //virtual void addWorld(World* world) = 0;
 };
